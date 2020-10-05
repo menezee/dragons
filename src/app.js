@@ -7,17 +7,20 @@ import {
 } from "react-router-dom";
 
 import { Login } from './pages/login';
+import { AuthContextProvider } from './contexts/auth';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path='/login'>
-          <Login />
-        </Route>
-        <Redirect to='/login' />
-      </Switch>
-    </Router>
+    <AuthContextProvider>
+      <Router>
+        <Switch>
+          <Route path='/login'>
+            <Login />
+          </Route>
+          <Redirect to='/login' />
+        </Switch>
+      </Router>
+    </AuthContextProvider>
   );
 }
 
