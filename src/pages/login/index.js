@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { AuthContext } from '../../contexts/auth';
+import { ROUTES } from '../../utils/routes';
+
+import styles from './login.module.scss';
 
 function Login() {
+  const { setUser } = useContext(AuthContext);
+  const history = useHistory();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -8,20 +17,35 @@ function Login() {
     handler(e.target.value);
   };
 
+  const handleLogin = e => {
+    e.preventDefault();
+
+    setUser({
+      username,
+      password,
+    });
+
+    history.push(ROUTES.LIST);
+  };
+
   return (
-    <div>
-      <section>
+    <div className={`${styles.login} fullscreen`}>
+      <form className={styles.user} onSubmit={handleLogin}>
         <input
           onChange={inputHandler(setUsername)}
           placeholder='Username'
+          required
           value={username}
         />
         <input
           onChange={inputHandler(setPassword)}
-          placeholder='password'
+          placeholder='Password'
+          required
+          type='password'
           value={password}
         />
-      </section>
+        <button>Login</button>
+      </form>
     </div>
   );
 }
