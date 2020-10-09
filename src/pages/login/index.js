@@ -1,13 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AuthContext } from '../../contexts/auth';
 import { ROUTES } from '../../utils/routes';
+import { useAuth } from '../../hooks/useAuth';
 
 import styles from './login.module.scss';
 
 function Login() {
-  const { setUser } = useContext(AuthContext);
+  const { setUser } = useAuth();
   const history = useHistory();
 
   const [username, setUsername] = useState('');
